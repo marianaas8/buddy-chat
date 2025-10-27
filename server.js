@@ -6,10 +6,6 @@ const app = express();
 // run on railway
 const port = process.env.PORT || 3000;
 
-//run locally
-// const port = 3000; 
-
-
 // Rota fallback para default-avatar.png (serve um SVG embutido) — evita 404 enquanto o cliente atualiza
 app.get('/default-avatar.png', (req, res) => {
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -100,13 +96,13 @@ wss.on("connection", (ws) => {
         if (!existing) {
           const joinTime = Date.now();
 
-          // 1️⃣ Para os outros utilizadores
+          // Para os outros utilizadores
           const joinMsgOthers = {
             type: "system",
             payload: { text: `${clientObj.user} entrou na conversa.`, time: joinTime },
           };
 
-          // 2️⃣ Para o próprio utilizador
+          // Para o próprio utilizador
           const joinMsgSelf = {
             type: "system",
             payload: { text: `Entraste no Buddy Chat.`, time: joinTime },
