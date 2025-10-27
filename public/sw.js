@@ -1,4 +1,4 @@
-const CACHE_NAME = "buddy-chat-v2";
+const CACHE_NAME = "buddy-chat-v4";
 const ASSETS = ["/", "/index.html", "/default-avatar.png", "/idle.png"];
 
 self.addEventListener("install", (event) => {
@@ -12,7 +12,6 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
-  );
+  // Não usar cache, sempre buscar do servidor
+  event.respondWith(fetch(event.request));
 });
