@@ -3,7 +3,12 @@ const WebSocket = require("ws");
 const path = require("path");
 
 const app = express();
+// run on railway
 const port = process.env.PORT || 3000;
+
+//run locally
+// const port = 3000; 
+
 
 // Rota fallback para default-avatar.png (serve um SVG embutido) — evita 404 enquanto o cliente atualiza
 app.get('/default-avatar.png', (req, res) => {
@@ -32,7 +37,10 @@ let history = [];
 let clients = [];
 
 const server = app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+  //run locally
+  // console.log(`Servidor rodando em http://localhost:${port}`);
+  // For railway
+  console.log(`Servidor rodando em https://buddy-chat-1hao.onrender.com`);
 });
 
 const wss = new WebSocket.Server({ server });
