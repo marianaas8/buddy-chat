@@ -2,6 +2,7 @@
 <html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Buddy Chat - Grupo Interno</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
@@ -51,7 +52,7 @@
       flex-direction: row;
       align-items: stretch;
       width: 100vw;
-      height: 100vh;
+      height: 85vh;
       padding: 20px;
       box-sizing: border-box;
     }
@@ -149,7 +150,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: hidden; /* evita scroll duplo */
     }
 
     /* Lista de participantes com scroll */
@@ -225,6 +225,21 @@
       gap: 15px;
     }
 
+    /* Versão PC do Buddy Card */
+    #buddyCard {
+      width: 560px;
+      height: 560px;
+      background: #eef7ff;
+      margin: 10px 0 20px 0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
     .participant-card img {
       width: 120px;
       height: 120px;
@@ -235,6 +250,192 @@
     .participant-name { font-weight: bold; }
     .participant-email { font-size: 0.8em; color: #666; }
 
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 0;
+        overflow: hidden;
+      }
+
+      #chatContainer {
+        flex-direction: column;
+        padding: 0;
+      }
+
+      #chatBox {
+        margin: 0;
+        height: 80vh;
+        border-radius: 0;
+      }
+
+      #participants {
+        height: 20vh;
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        flex-direction: row;
+        border-radius: 0;
+        gap: 0;
+      }
+
+      .buddy-section {
+        /* usar percentagens para largura em vez de unidades de altura (vh) que causavam overflow */
+        width: 30%;
+        max-width: 140px; /* evita que fique demasiado grande em ecrãs altos */
+        height: 100%;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; /* garante que o Buddy começa alinhado pelo topo, como os participant-cards */
+        padding-right: 10px;
+        position: relative;
+        box-sizing: border-box;
+      }
+
+      .buddy-section::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 10%;
+        height: 80%;
+        width: 2px;
+        background: #ccc;
+      }
+
+      /* manter Buddy quadrado, mas com limites em px / % para não estourar o container
+         e garantir que respeita a altura disponível do seu pai (sem exceder) */
+      #buddyCard {
+        width: 100%;
+        max-width: 140px;
+        aspect-ratio: 1 / 1; /* garante um quadrado proporcional */
+        margin: 0;
+        padding: 8px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        /* Assegura que o cartão encolhe se a altura disponível for limitada
+           - max-height: evita que a altura exceda a altura do contêiner pai
+           - height: auto: permite que a largura determine a altura, mas o max-height
+             impede overflow vertical */
+        max-height: 100%;
+        height: auto;
+        overflow: hidden;
+      }
+
+      /* Título do Buddy: igual altura ao h4 dos participantes para alinhamento consistente */
+      #buddyTitle {
+        height: 30px;
+        margin: 0 0 5px 0;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #buddySeparator {
+        display: none;
+      }
+
+      .participants-section {
+        /* organiza título + lista verticalmente; a lista ocupa o espaço restante */
+        flex: 1;
+        height: 100%;
+        padding-left: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+      }
+
+      #participantsList {
+        /* deixa o título ocupar o seu espaço e a lista preencher o resto */
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 10px;
+        padding: 5px 5px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        align-items: flex-start; /* alinha os cartões pelo topo para coincidir com Buddy */
+      }
+
+      #participantsList::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      .participant-card {
+        width: 120px;
+        height: auto; /* evitar esticar para 100% da altura do contêiner */
+        min-height: 0;
+        max-height: 100%;
+        flex-shrink: 0;
+        padding: 10px;
+        scroll-snap-align: start;
+        gap: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        box-sizing: border-box;
+      }
+
+      .participant-card img {
+        width: 50px !important;
+        height: 50px !important;
+      }
+
+      .participant-card .participant-name {
+        font-size: 11px;
+        line-height: 1.2;
+        margin: 2px 0;
+        word-break: break-word;
+      }
+
+      .participant-card .participant-email {
+        font-size: 9px;
+        line-height: 1.1;
+        word-break: break-word;
+      }
+
+      h4 {
+        height: 30px;
+        margin: 0 0 5px 0 !important;
+      }
+
+      #participantsList::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    /* Media Queries para telas muito pequenas */
+    @media (max-width: 380px) {
+      #chatContainer {
+        padding: 5px;
+      }
+
+      .participant-card {
+        height: 180px;
+      }
+
+      .participant-card img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .participant-email {
+        font-size: 0.7em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -256,13 +457,17 @@
     </div>
 
     <div id="participants">
-      <div id="buddyTitle">Buddy</div>
-      <div id="buddyCard" class="participant-card">
-        <img id="buddyImg" src="idle.png" alt="Buddy">
+      <div class="buddy-section">
+        <div id="buddyTitle">Buddy</div>
+        <div id="buddyCard" class="participant-card">
+          <img id="buddyImg" src="idle.png" alt="Buddy">
+        </div>
       </div>
       <div id="buddySeparator"></div>
-      <h4>Participantes</h4>
-      <div id="participantsList"></div>
+      <div class="participants-section">
+        <h4>Participantes</h4>
+        <div id="participantsList"></div>
+      </div>
     </div>
   </div>
 
