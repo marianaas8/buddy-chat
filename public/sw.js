@@ -1,5 +1,5 @@
 const CACHE_NAME = "buddy-chat-v1";
-const ASSETS = ["/", "/index.html", "/default-avatar.png", "/idle.gif"];
+const ASSETS = ["/", "/index.html", "/default-avatar.png", "/idle.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

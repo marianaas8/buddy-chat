@@ -37,10 +37,7 @@ let history = [];
 let clients = [];
 
 const server = app.listen(port, () => {
-  //run locally
-  // console.log(`Servidor rodando em http://localhost:${port}`);
-  // For railway
-  console.log(`Servidor rodando em https://buddy-chat-1hao.onrender.com`);
+  console.log(`Servidor a rodar em http://localhost:${port} e https://buddy-chat-1hao.onrender.com`);
 });
 
 const wss = new WebSocket.Server({ server });
@@ -200,11 +197,11 @@ wss.on("connection", (ws) => {
  */
 function callBuddyAPI(userMessage) {
   if (userMessage.includes("olá") || userMessage.includes("como estas")) {
-    return { text: "Oi! Que bom te ver!", animation: "wave.gif" };
+    return { text: "Oi! Que bom te ver!", animation: "happy.png" };
   } else if (userMessage.includes("triste")) {
-    return { text: "Oh, que pena...", animation: "sad.gif" };
+    return { text: "Oh, que pena...", animation: "sad.png" };
   } else {
-    return { text: "Hmm, entendi.", animation: "thinking.gif" };
+    return { text: "Hmm, entendi.", animation: "thinking.png" };
   }
 }
 

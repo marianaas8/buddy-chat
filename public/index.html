@@ -242,7 +242,7 @@
       <div id="buddySeparator"></div>
       <div id="buddyTitle">Buddy</div>
       <div id="buddyCard" class="participant-card">
-        <img id="buddyImg" src="idle.gif" alt="Buddy">
+        <img id="buddyImg" src="idle.png" alt="Buddy">
       </div>
     </div>
   </div>
@@ -366,7 +366,7 @@
         // Se for mensagem do Buddy, muda animação
         if (msg.type === "message" && msg.payload?.user === "Buddy") {
           const buddyImg = document.getElementById("buddyImg");
-          buddyImg.src = msg.payload.picture || "idle.gif";
+          buddyImg.src = msg.payload.picture || "idle.png";
         }
       };
 
